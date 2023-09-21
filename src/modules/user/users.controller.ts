@@ -1,7 +1,22 @@
 import { GenericSuccessResponseDto } from '@/common/dtos';
 import { successBody } from '@/common/utils';
-import { Body, Controller, Delete, Get, Post, Put, Req } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Put,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { JwtGuard } from '../auth/jwt.guard';
 import {
   CreateUserRequestDto,
   CreateUserSuccessResponseDto,
@@ -24,28 +39,34 @@ export class UsersController {
     return successBody({ id: res }, 201);
   }
 
+  @ApiBearerAuth()
   @ApiOkResponse({
     type: GenericSuccessResponseDto,
   })
   @Put()
+  @UseGuards(JwtGuard)
   async put(@Body() body: UpdateUserRequestDto, @Req() req: any) {
     await this.usersService.update(req.user.id, body);
     return successBody();
   }
 
+  @ApiBearerAuth()
   @ApiOkResponse({
     type: GenericSuccessResponseDto,
   })
   @Delete()
+  @UseGuards(JwtGuard)
   async delete(@Req() req: any) {
     await this.usersService.delete(req.user.id);
     return successBody();
   }
 
+  @ApiBearerAuth()
   @ApiOkResponse({
     type: GetUserSuccessResponseDto,
   })
   @Get()
+  @UseGuards(JwtGuard)
   async get(@Req() req: any) {
     const res = await this.usersService.findOne({ id: req.user.id });
     return successBody({ ...res, password: undefined });
