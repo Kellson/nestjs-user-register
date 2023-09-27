@@ -1,7 +1,7 @@
-Para executar a API
+# Sample - projects that uses NestJs + typeorm + migrations + swagger + jest + jwt
 
-1 - Instalar dependências com npm install
-2 - Criar arquivo .env na raíz do projeto, baseado no .env.example, e definir os seus valores
-3 - Executar comando npm run migration:run para criar o banco de dados
-4 - Executar comando npm start:dev para iniciar a aplicação
-5 - No caminho /api, está a documentação da api
+1 - Rund command npm install
+2 - Create a .env file in the project root, based on .env.example, and set the variables values
+3 - Run command npm run migration:run to created the database
+4 - Run command npm start:dev to start the application
+5 - The swagger documentation is in the "/api" path
